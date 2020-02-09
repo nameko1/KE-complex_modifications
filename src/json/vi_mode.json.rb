@@ -26,7 +26,7 @@ def main
       },
       {
         "description" => "Vi Visual Mode",
-        "manipulators" => generate_vi_visual_mode("v"),
+        "manipulators" => generate_vi_visual_mode("a"),
       },
     ],
   )
@@ -53,6 +53,7 @@ def generate_vi_visual_mode(trigger_key)
     generate_vi_visual_mode_single_rule("h", "left_arrow", ["left_shift"], trigger_key),
     generate_vi_visual_mode_single_rule("l", "right_arrow", ["left_shift"], trigger_key),
     generate_vi_visual_mode_single_rule("b", "left_arrow", ["left_shift", "left_option"], trigger_key),
+    generate_vi_visual_mode_single_rule("y", "c", ["left_command"], trigger_key),
     generate_vi_visual_mode_single_rule("w", "right_arrow", ["left_shift", "left_option"], trigger_key),
     generate_vi_visual_mode_single_rule("0", "left_arrow", ["left_shift", "left_command"], trigger_key),
     generate_vi_visual_mode_single_rule("4", "right_arrow", ["left_shift", "left_command"], trigger_key),

@@ -1,6 +1,10 @@
 # Helper methods for generating json
 module Karabiner
   BUNDLE_IDENTIFERS = {
+    :my_editor => [
+      '^net\.shinyfrog\.bear$',
+    ],
+
     :alfred => [
       '^com\\.runningwithcrayons\\.Alfred$',
     ],
@@ -125,6 +129,7 @@ module Karabiner
   }.freeze
 
   APP_ALIASES = {
+    'my_editor' => BUNDLE_IDENTIFERS[:my_editor],
     'alfred' => BUNDLE_IDENTIFERS[:alfred],
     'activity_monitor' => BUNDLE_IDENTIFERS[:activity_monitor],
     'adium' => BUNDLE_IDENTIFERS[:adium],
@@ -190,6 +195,19 @@ module Karabiner
 
   def self.frontmost_application_unless(app_aliases = [], bundle_identifiers: [])
     frontmost_application('frontmost_application_unless', app_aliases, bundle_identifiers: bundle_identifiers)
+  end
+
+  def self.default_mac_keyboard_if()
+    {
+        "type" => "device_if",
+        "identifiers" =>[
+          {
+              "vendor_id" => 1452,
+              "product_id" => 630,
+              "description" => "default keyboard",
+          }
+        ]
+    }
   end
 
   def self.keyboard_type_if(keyboard_types)
