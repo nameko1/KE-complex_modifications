@@ -15,7 +15,7 @@ def main
         "description" => "Setting EISSU and Kana Keys",
         "manipulators" => [
           eissu("spacebar", ["control"]),
-          kana("delete_or_backspace", ["control"]),
+          kana("return_or_enter", ["control"]),
         ].flatten
       },
       {
@@ -64,9 +64,9 @@ def eissu(from_key_code, from_modifier_key_code_array)
           "key_code": "japanese_eisuu",
         },
       ],
-      "conditions" => [
-        Karabiner.default_mac_keyboard_if(),
-      ]
+      # "conditions" => [
+      #   Karabiner.default_mac_keyboard_if(),
+      # ]
     }
   ]
 end
