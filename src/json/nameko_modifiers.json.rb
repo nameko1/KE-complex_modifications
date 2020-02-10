@@ -12,6 +12,13 @@ def main
         "manipulators" => key_modifier(),
       },
       {
+        "description" => "Setting EISSU and Kana Keys",
+        "manipulators" => [
+          eissu("spacebar", ["control"]),
+          kana("delete_or_backspace", ["control"]),
+        ].flatten
+      },
+      {
         "description" => "Send Escape and JP_EISUU when Ctrl + [",
         "manipulators" => [
           escape_and_eisuu_only_terminal("open_bracket", ["control"]),
@@ -30,7 +37,7 @@ end
 
 def key_modifier()
   [
-    switch_key("right_alt", "right_gui", [], [], []),
+    switch_key_default_keyboard("right_alt", "right_gui", [], [], []),
     switch_key("i", "tab", ["left_control"], [], []),
     switch_key("h", "left_arrow", ["left_control"], [], ["terminal", "vi"]),
     switch_key("j", "down_arrow", ["left_control"], [], ["terminal", "vi"]),
@@ -40,6 +47,51 @@ def key_modifier()
     escape_and_eisuu_only_terminal("open_bracket", ["control"]),
     escape_and_eisuu_only_terminal("delete_or_backspace", ["control"]),
   ].flatten
+end
+
+def eissu(from_key_code, from_modifier_key_code_array)
+  [
+    {
+      "type" => "basic",
+      "from" => {
+        "key_code" => from_key_code,
+        "modifiers" => {
+          "mandatory" => from_modifier_key_code_array
+        },
+      },
+      "to" => [
+        {
+          "key_code": "japanese_eisuu",
+        },
+      ],
+      "conditions" => [
+        Karabiner.default_mac_keyboard_if(),
+      ]
+    }
+  ]
+end
+
+def kana(from_key_code, from_modifier_key_code_array)
+  [
+    {
+      "type" => "basic",
+      "from" => {
+        "key_code" => from_key_code,
+        "modifiers" => {
+          "mandatory" => from_modifier_key_code_array
+        },
+      },
+      "to" => [
+        {
+          "key_code": "japanese_kana",
+        },
+      ],
+      "conditions" => [
+        Karabiner.default_mac_keyboard_if(),
+      ]
+    }
+  ]
+
 end
 
 def escape_and_eisuu_only_terminal(from_key_code, from_modifier_key_code_array)
@@ -174,17 +226,31 @@ def switch_key(from_key_code, to_key_code, from_modifier_key_code_array, to_modi
       ],
       "conditions" => [
         Karabiner.frontmost_application_unless(unless_application),
+      ]
+    }
+  ]
+end
+
+def switch_key_default_keyboard(from_key_code, to_key_code, from_modifier_key_code_array, to_modifier_key_code_array, unless_application)
+  [
+    {
+      "type" => "basic",
+      "from" => {
+        "key_code" => from_key_code,
+        "modifiers" => {
+          "mandatory" => from_modifier_key_code_array,
+          "optional" => ["any"],
+        },
+      },
+      "to" => [
+        {
+          "key_code" => to_key_code,
+          "modifiers" => to_modifier_key_code_array,
+        },
+      ],
+      "conditions" => [
+        Karabiner.frontmost_application_unless(unless_application),
         Karabiner.default_mac_keyboard_if(),
-        # {
-        #     "type" => "device_if",
-        #     "identifiers" =>[
-        #         {
-        #             "vendor_id" => 1452,
-        #             "product_id" => 630,
-        #             "description" => "default keyboard",
-        #         }
-        #     ]
-        # },
       ]
     }
   ]

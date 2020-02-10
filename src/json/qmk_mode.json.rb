@@ -42,12 +42,12 @@ def generate_upper_layer()
     generate_upper_keybind("open_bracket", "delete_or_backspace", []),
     generate_upper_keybind("close_bracket", "delete_or_backspace", []),
     generate_upper_keybind("s", "escape", []),
-    generate_upper_keybind("d", "grave_accent_and_tilde", []),
     generate_upper_keybind("f", "backslash", []),
     generate_upper_keybind("h", "hyphen", []),
     generate_upper_keybind("j", "open_bracket", []),
     generate_upper_keybind("k", "close_bracket", []),
     generate_upper_keybind("l", "equal_sign", []),
+    generate_upper_keybind("quote", "grave_accent_and_tilde", []),
   ].flatten
 end
 
@@ -67,6 +67,7 @@ def generate_upper_keybind(from_key_code, to_key_code, to_modifier_key_code_arra
       ],
       "conditions" => [
         Karabiner.variable_if("upper_layer", 1),
+        Karabiner.default_mac_keyboard_if(),
       ]
     }
   ]
@@ -85,6 +86,7 @@ def generate_upper_key(trigger_key, key_code)
       ],
       "conditions" => [
         Karabiner.variable_if("upper_layer", 0),
+        Karabiner.default_mac_keyboard_if(),
       ]
     },
     {
@@ -98,6 +100,7 @@ def generate_upper_key(trigger_key, key_code)
       ],
       "conditions" => [
         Karabiner.variable_if("upper_layer", 1),
+        Karabiner.default_mac_keyboard_if(),
       ]
     },
   ]
@@ -126,6 +129,7 @@ def generate_upper_key_on_hold(trigger_key)
       ],
       "conditions" => [
         Karabiner.variable_if("upper_layer", 0),
+        Karabiner.default_mac_keyboard_if(),
       ]
     },
   ]
