@@ -57,12 +57,12 @@ def escape_and_eisuu_only_terminal(from_key_code, from_modifier_key_code_array)
           "key_code": "open_bracket",
           "modifiers" => "control"
         },
-        # {
-        #   "key_code": "japanese_eisuu"
-        # }
+        {
+          "key_code": "japanese_eisuu"
+        }
       ],
       "conditions" => [
-        Karabiner.frontmost_application_if(["terminal"]),
+        Karabiner.frontmost_application_if(["terminal", "browser"]),
       ]
     }
   ]
